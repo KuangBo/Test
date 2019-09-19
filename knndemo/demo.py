@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+'''
 from sklearn import datasets
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -14,7 +14,7 @@ from sklearn.neighbors import KNeighborsClassifier
 # 决策边界函数
 def plot_decision_regions(X, y, classifier, test_idx=None, resolution=0.02):
     # 设置标记点和颜色
-    markers = ('s', 'x', 'o', '^', 'v')
+    markers = ('s', 'x', 'v', '^', 'o')
     colors = ('red', 'blue', 'lightgreen', 'gray', 'cyan')
     cmap = ListedColormap(colors[:len(np.unique(y))])
 
@@ -41,6 +41,7 @@ def plot_decision_regions(X, y, classifier, test_idx=None, resolution=0.02):
 iris = datasets.load_iris()
 X = iris.data[:, [2, 3]]
 y = iris.target
+print(iris.target_names)
 print(np.unique(y))
 # 训练集和测试集划分
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
@@ -64,3 +65,4 @@ plt.xlabel('petal length[standardized]')
 plt.ylabel('petal width[standardized]')
 plt.legend(loc='upper left')
 plt.show()
+'''

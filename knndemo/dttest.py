@@ -71,9 +71,11 @@ if __name__ == '__main__':
     print("The accuracy:", clf.score(x_test, y_test))
 
     # 实现结果可视化
-    X_combined_std = np.vstack((x_train, x_test))
-    y_combined = np.hstack((y_train, y_test))
-    plot_decision_regions(X=X_combined_std, y=y_combined, classifier=clf, test_idx=range(105, 150))
+    x_combined = np.vstack((x_train, x_test))   # 按垂直方向（行顺序）堆叠数组构成一个新的数组
+    y_combined = np.hstack((y_train, y_test))   # 按水平方向（列顺序）堆叠数组构成一个新的数组
+    plot_decision_regions(x=x_combined, y=y_combined, test=[x_test, y_test], classifier=clf)
+    # 只传出train的数据
+    # plot_decision_regions(x=x_train, y=y_train, test=[x_test, y_test], classifier=clf)
     plt.xlabel('petal length--std')
     plt.ylabel('petal width--std')
     plt.legend(loc='upper left')

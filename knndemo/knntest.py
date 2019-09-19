@@ -40,9 +40,9 @@ for k in k_range:
     # for i in range(len(y_predict)):
     #     print("第{}次，预测值：{}\t真实值：{}".format(i+1, y_predict[i], Y_test[i]))
     # 绘制决策边界
-    X_combined_std = np.vstack((X_train, X_test))
+    x_combined = np.vstack((X_train, X_test))
     y_combined = np.hstack((Y_train, Y_test))
-    plot_decision_regions(X=X_combined_std, y=y_combined, classifier=knn, test_idx=range(105, 150))
+    plot_decision_regions(x=x_combined, y=y_combined, test=[X_test, Y_test], classifier=knn)
     plt.xlabel('petal length--std')
     plt.ylabel('petal width--std')
     plt.legend(loc='upper left')
