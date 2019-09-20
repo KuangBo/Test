@@ -20,8 +20,8 @@ sess = tf.Session()
 init_op = tf.global_variables_initializer()
 sess.run(init_op)
 '''
-sess.run(w1.initializer)    # 初始化w1
-sess.run(w2.initializer)    # 初始化w2
+sess.run(w1.initializer)  # 初始化w1
+sess.run(w2.initializer)  # 初始化w2
 # 输出[[3.95757794]]
 print(sess.run(y))
 sess.close()
