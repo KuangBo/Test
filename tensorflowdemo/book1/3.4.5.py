@@ -49,3 +49,20 @@ with tf.Session() as sess:
     sess.run(init_op)
     print(sess.run(w1))
     print(sess.run(w2))
+
+# 设定训练的轮数
+STEPS = 5000
+for i in range(STEPS):
+    # 每次选取batch_size个样本进行训练
+    start = (i * batch_size) % dataset_size
+    end = min(start + batch_size, dataset_size)
+
+    # 通过选取的样本训练神经网络并更新参数
+    sess.run(train_step, feed_dict={x: X[start:end], y_: Y[start:end]})
+    if i % 1000 == 0:
+        # 每隔一段时间计算所有数据上的交叉熵并输出
+        total_cross_entropy = sess.run(cross_entropy, feed_dict={x: X, y_: Y})
+        print("After %d training step(s), cross entropy on all data is %g" % (i, total_cross_entropy))
+
+print(sess.run(w1))
+print(sess.run(w2))
