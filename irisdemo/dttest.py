@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn import tree
 
-from knndemo.util.plot_decision import plot_decision_regions
+from irisdemo.util.plot_decision import plot_decision_regions
 
 
 # 可视化iris数据集，寻找高相关性的属性

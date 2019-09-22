@@ -37,7 +37,7 @@ X = rdm.rand(dataset_size, 2)
     定义规则来给出岩本的标签。在这里所有下x1+x2<1的样例都被认为是正样本（比如零件合格），而其他为负样本（比如领先不合格）。
     0表示负样本，1表示正样本
 '''
-Y = [[int(x1+x2<1)] for (x1, x2) in X]
+Y = [[int(x1+x2 < 1)] for (x1, x2) in X]
 
 print(X)
 print(Y)
@@ -50,19 +50,19 @@ with tf.Session() as sess:
     print(sess.run(w1))
     print(sess.run(w2))
 
-# 设定训练的轮数
-STEPS = 5000
-for i in range(STEPS):
-    # 每次选取batch_size个样本进行训练
-    start = (i * batch_size) % dataset_size
-    end = min(start + batch_size, dataset_size)
+    # 设定训练的轮数
+    STEPS = 5000
+    for i in range(STEPS):
+        # 每次选取batch_size个样本进行训练
+        start = (i * batch_size) % dataset_size
+        end = min(start + batch_size, dataset_size)
 
-    # 通过选取的样本训练神经网络并更新参数
-    sess.run(train_step, feed_dict={x: X[start:end], y_: Y[start:end]})
-    if i % 1000 == 0:
-        # 每隔一段时间计算所有数据上的交叉熵并输出
-        total_cross_entropy = sess.run(cross_entropy, feed_dict={x: X, y_: Y})
-        print("After %d training step(s), cross entropy on all data is %g" % (i, total_cross_entropy))
+        # 通过选取的样本训练神经网络并更新参数
+        sess.run(train_step, feed_dict={x: X[start:end], y_: Y[start:end]})
+        if i % 1000 == 0:
+            # 每隔一段时间计算所有数据上的交叉熵并输出
+            total_cross_entropy = sess.run(cross_entropy, feed_dict={x: X, y_: Y})
+            print("After %d training step(s), cross entropy on all data is %g" % (i, total_cross_entropy))
 
-print(sess.run(w1))
-print(sess.run(w2))
+    print(sess.run(w1))
+    print(sess.run(w2))

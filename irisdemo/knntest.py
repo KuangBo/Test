@@ -6,7 +6,7 @@ from sklearn.externals._arff import xrange
 from sklearn.model_selection import train_test_split  # 交叉验证
 from sklearn.preprocessing import StandardScaler  # 标准化
 from sklearn.neighbors import KNeighborsClassifier  # KNN
-from knndemo.util.plot_decision import plot_decision_regions
+from irisdemo.util.plot_decision import plot_decision_regions
 from sklearn.metrics import classification_report  # 判断准确率
 import matplotlib.pyplot as plt
 import numpy as np
