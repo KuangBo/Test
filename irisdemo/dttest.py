@@ -4,6 +4,7 @@ import numpy as np
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.externals._arff import xrange
 from sklearn import tree
 
 from irisdemo.util.plot_decision import plot_decision_regions
@@ -57,27 +58,36 @@ if __name__ == '__main__':
     x_train_std = ss.fit_transform(x_train)
     x_test_std = ss.fit_transform(x_test)
 
-    # 构建决策树
-    clf = tree.DecisionTreeClassifier()
-    clf.fit(x_train, y_train)  # 进行决策树拟合
+    max_d_set = list(xrange(1, 21, 1))
+    test_accuracy = []
+    for max_d in max_d_set:
+        # 构建决策树
+        clf = tree.DecisionTreeClassifier(max_depth=max_d)
+        clf.fit(x_train, y_train)  # 进行决策树拟合
 
-    # 预测
-    y_test_pre = clf.predict(x_test)
-    # print("The value of predict:", y_test_pre)
-    # for i in range(len(y_test)):
-    #     print("真实值：{}\t预测值：{}".format(y_test[i], y_test_pre[i]))
+        # 预测
+        y_test_pre = clf.predict(x_test)
+        # print("The value of predict:", y_test_pre)
+        # for i in range(len(y_test)):
+        #     print("真实值：{}\t预测值：{}".format(y_test[i], y_test_pre[i]))
 
-    # 计算准确率accuracy
-    print("The accuracy:", clf.score(x_test, y_test))
+        # 计算准确率accuracy
+        print("The accuracy:", clf.score(x_test, y_test))
+        test_accuracy.append(clf.score(x_test, y_test))
 
-    # 实现结果可视化
-    x_combined = np.vstack((x_train, x_test))   # 按垂直方向（行顺序）堆叠数组构成一个新的数组
-    y_combined = np.hstack((y_train, y_test))   # 按水平方向（列顺序）堆叠数组构成一个新的数组
-    plot_decision_regions(x=x_combined, y=y_combined, test=[x_test, y_test], classifier=clf)
-    # 只传出train的数据
-    # plot_decision_regions(x=x_train, y=y_train, test=[x_test, y_test], classifier=clf)
-    plt.xlabel('petal length--std')
-    plt.ylabel('petal width--std')
-    plt.legend(loc='upper left')
-    plt.savefig("./result/Result of Decision Tree")
+        # 实现结果可视化
+        x_combined = np.vstack((x_train, x_test))   # 按垂直方向（行顺序）堆叠数组构成一个新的数组
+        y_combined = np.hstack((y_train, y_test))   # 按水平方向（列顺序）堆叠数组构成一个新的数组
+        plot_decision_regions(x=x_combined, y=y_combined, test=[x_test, y_test], classifier=clf)
+        # 只传出train的数据
+        # plot_decision_regions(x=x_train, y=y_train, test=[x_test, y_test], classifier=clf)
+        plt.xlabel('petal length--std')
+        plt.ylabel('petal width--std')
+        plt.legend(loc='upper left')
+        plt.savefig("./result/decisionTree/Result of max_d={}".format(max_d))
+        plt.show()
+    plt.plot(max_d_set, test_accuracy)
+    plt.xlabel("Value of max_depth")
+    plt.ylabel("Testing Accuracy")
+    plt.savefig("./result/decisionTree/Change of max_depth and Acc")
     plt.show()
