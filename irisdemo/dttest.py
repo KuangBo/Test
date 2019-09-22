@@ -36,7 +36,7 @@ def visualize_data(x, y, feature_names):
             ax.set_xlabel(feature_names[row])
             ax.set_ylabel(feature_names[col])
     # 设置间距
-    fig.subplots_adjust(hspace=0.5, wspace=0.5)
+    fig.subplots_adjust(hspace=0.5, wspace=1)
     plt.savefig("./result/Comparison of Attribution")
     plt.show()
 
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     y = iris.target
     visualize_data(x, y, iris.feature_names)
     # 将整个数据集划分为两个部分，其中训练集占0.75，测试集占0.25，加入random_state，保证每次划分是一样的
-    x_train, x_test, y_train, y_test = train_test_split(iris.data[:, [2, 3]], iris.target, test_size=0.4,
+    x_train, x_test, y_train, y_test = train_test_split(iris.data[:, [2, 3]], iris.target, test_size=0.25,
                                                         random_state=50)
 
     # 进行标准化处理

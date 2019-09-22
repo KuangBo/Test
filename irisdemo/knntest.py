@@ -19,7 +19,7 @@ import numpy as np
 # 导入数据集
 iris = load_iris()
 # 将整个数据划分为训练集和测试集两个部分，其中训练集0.75，测试集0.25
-X_train, X_test, Y_train, Y_test = train_test_split(iris.data[:, [2, 3]], iris.target, test_size=0.4, random_state=50)
+X_train, X_test, Y_train, Y_test = train_test_split(iris.data[:, [2, 3]], iris.target, test_size=0.25, random_state=50)
 
 # 将数据进行标准化处理，然后导入KNN模型进行训练
 ss = StandardScaler()
@@ -30,7 +30,7 @@ X_test = ss.fit_transform(X_test)
 k_range = list(xrange(1, 21, 2))
 test_accuracy = []
 for k in k_range:
-    knn = KNeighborsClassifier(n_neighbors=3)
+    knn = KNeighborsClassifier(n_neighbors=k)
     knn.fit(X_train, Y_train)
     y_predict = knn.predict(X_test)
     test_accuracy.append(knn.score(X_test, Y_test))
